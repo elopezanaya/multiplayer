@@ -11,13 +11,63 @@ API to track the most frequent Multiplayer mode played by Country.
 
 Each time the player start a new game session, the game is going to report the game mode selected and the country of origin.
 
+### Headers Definition
+|Name |Type   |  Example|Notes
+|---|---|---|---|---|---|---|
+|Authorization|Auth Basic Encoding|Y2FtcGFpZ25AdmVvLnR2OnrwerwerDN2MTU0|Encription of user and password
+|Token|Numeric|1234|Input| Token generated based on credentials.
+
+
+### Parameters Definition
 |Name |Type   |  Example | Direction|Notes|
 |---|---|---|---|---|---|---|
 |id_user|Numeric|1234|Input|
 |id_mode|Numeric|1234|Input|
 |country|Chars limited to 2 chars|MX|Input|Format (ISO-3166)
 
+### Error Definition
+|Error Number |Error Message   |
+|---|---|---|---|---|---|---|
+|1|Wrong country format|
+|2|Mode specified is not supported in the country specified|
+|3|Token invalid or Expired|
 
+
+
+
+
+### Successful Request
+#### Request Example
+
+`        {"data":{
+            "id_user":12234,
+            "id_mode": 1,
+            "country":"MX"
+            }
+        }
+`
+#### Response Example
+`  {"data":{ 
+                    "message" : "success"
+                }
+        }
+    `
+### Wrong Request
+####Bad Request Example
+
+`        {"data":{
+            "id_user":12234,
+            "id_mode": 1,
+            "country":"Mexico"
+            }
+        }
+`
+####Bad Response Example
+`{"errors":["error":
+            {"code":12344,
+            "message":"Wrong country format."}
+            }
+            ]`
 
 + Request (application/json)
    
@@ -54,3 +104,4 @@ Each time the player start a new game session, the game is going to report the g
                     }
                     
         ]
+}
