@@ -1,0 +1,27 @@
+FORMAT: 1A
+HOST: http://multiplayer.apiblueprint.org/
+
+# Multiplayer API
+
+API to track the most frequent Multiplayer mode played by Country.
+
+##  Register Mode And Country   [/playing]
+
+### Register Activity  [POST]
+
++ Request (application/json)
+   
++ Headers
+
+        Api_Key: your API key.
+        Accept: application/json
+        
+        {
+            "user":"@iamcoder",
+            "id_mode": 1,
+            "country":"MX"
+        }
++ Response 201 (application/json)
+
+        + Body
+        { "message" : "success"}
