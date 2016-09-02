@@ -13,15 +13,35 @@ API to track the most frequent Multiplayer mode played by Country.
    
 + Headers
 
-        Api_Key: your API key.
-        Accept: application/json
+    Authorization   :   Basic Y2FtcGFpZ25AdmVvLnR2OnrwerwerDN2MTU0
+    Token           :   Oy0kJNI9kkjItQoObTlApm578hJpY8fWvuu36Eu8IcA3YoA0iD/CtkfvtGB/17QHBgtPzuOpnONLvBEDeVg2rA== 
         
-        {
-            "user":"@iamcoder",
++ Request
+        {"data":{
+            "user_id":12234,
             "id_mode": 1,
             "country":"MX"
+        }
         }
 + Response 201 (application/json)
 
         + Body
-        { "message" : "success"}
+        {"data":{ 
+                    "message" : "success"
+                }
+        }
+        
++ Response 400 (application/json)
+{ "errors":[
+            "error":{   "code":1,
+                        "message":"Wrong country format"
+                    },
+            "error":{   "code":2,
+                        "message":"Mode specified is not supported in the country specified"
+                    },
+            "error":{
+                        "code":3,
+                        "Token invalid or Expired"
+                    }
+                    
+        ]
