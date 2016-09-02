@@ -11,6 +11,8 @@ API to track the most frequent Multiplayer mode played by Country.
 
 Each time the player start a new game session, the game is going to report the game mode selected and the country of origin.
 
+This is an async operation, you are going to receive a confirmation that your request is in the queue.
+
 ### Headers Definition
 |Name |Type   |  Example|Notes
 |---|---|---|---|---|---|---|
@@ -31,9 +33,6 @@ Each time the player start a new game session, the game is going to report the g
 |1|Wrong country format|
 |2|Mode specified is not supported in the country specified|
 |3|Token invalid or Expired|
-
-
-
 
 
 ### Successful Request
@@ -104,4 +103,126 @@ Each time the player start a new game session, the game is going to report the g
                     }
                     
         ]
+}
+
+##  Rank of the Game Modes most popular by Country   [/rank/{country}]
+### Get Rank  [GET]
+
+### Headers Definition
+|Name |Type   |  Example|Notes
+|---|---|---|---|---|---|---|
+|Authorization|Auth Basic Encoding|Y2FtcGFpZ25AdmVvLnR2OnrwerwerDN2MTU0|Encription of user and password
+|Token|Numeric|1234|Input| Token generated based on credentials.
+
+
+### Parameters Definition
+|Name |Type   |  Example | Direction|Notes|
+|---|---|---|---|---|---|---|
+|country|Chars limited to 2 chars|MX|Input|Format (ISO-3166)
+
+
+### Error Definition
+|Error Number |Error Message   |
+|---|---|---|---|---|---|---|
+|1|Wrong country format|
+|3|Token invalid or Expired|
+|4|No Data Available|
+
+### Request Example
+`www.multiplayer.com/rank/mx`
+
+### Response Example
+
+``` JSON
+{
+  "data": {
+    "country": "MX",
+    "billboard": [
+      {
+        "rank": {
+          "position": 1,
+          "mode": {
+            "id_mode": 1,
+            "mode_name": "Tutorial",
+            "description": "Learn and Explore before to get into the Battle."
+          }
+        }
+      },
+      {
+        "rank": {
+          "position": 2,
+          "mode": {
+            "id_mode": 2,
+            "mode_name": "Mercenary",
+            "description": "You have no side, you services are for sell and that could be a problem"
+          }
+        }
+      },
+      {
+        "rank": {
+          "position": 3,
+          "mode": {
+            "id_mode": 4,
+            "mode_name": "Rescue Mission",
+            "description": "Your credo is 'No man left behind', engage into a rescue mission"
+          }
+        }
+      }
+    ]
+  }
+}
+```
+
+
++ Request (application/json)
+
++ Headers
+
+    Authorization   :   Basic Y2FtcGFpZ25AdmVvLnR2OnrwerwerDN2MTU0
+    Token           :   Oy0kJNI9kkjItQoObTlApm578hJpY8fWvuu36Eu8IcA3YoA0iD/CtkfvtGB/17QHBgtPzuOpnONLvBEDeVg2rA== 
+        
++ Response 200 (application/json)
+
+        {"data": {"country":"MX",
+                "billboard":[
+                                {"rank":{   "position":1,
+                                            "mode":{ 
+                                                    "id_mode":1,
+                                                    "mode_name":"Tutorial",
+                                                    "description":"Learn and Explore before to get into the Battle."
+                                                    } 
+                                },
+                                {"rank":{   "position":2,
+                                            "mode":{ 
+                                                    "id_mode":2,
+                                                    "mode_name":"Mercenary",
+                                                    "description":"You have no side, you services are for sell and that could be a problem"
+                                                    } 
+                                },
+                                    {"rank":{  "position":3,
+                                             "mode":{ 
+                                                    "id_mode":4,
+                                                    "mode_name":"Rescue Mission",
+                                                    "description":"Your credo is 'No man left behind', engage into a rescue mission"
+                                                    } 
+                                            }
+                      }
+                      } 
+                 ]
+        }
+        
++ Response 400 (application/json)
+{ "errors":[
+            "error":{   "code":1,
+                        "message":"Wrong country format"
+                    },
+
+            "error":{
+                        "code":3,
+                        "Token invalid or Expired"
+                    },
+            "error":{  "code":4,
+                        "message":"No Data Available"
+                    }
+            ]
 }
